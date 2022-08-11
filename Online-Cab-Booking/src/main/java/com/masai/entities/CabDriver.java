@@ -34,6 +34,18 @@ public class CabDriver extends User{
 	@Column(unique = true)
 	private String licenseNumber;
 	
+	private Boolean availablity = true;
+	
+	
+	
+	public Boolean getAvailablity() {
+		return availablity;
+	}
+
+	public void setAvailablity(Boolean availablity) {
+		this.availablity = availablity;
+	}
+
 	public String getLicenseNumber() {
 		return licenseNumber;
 	}

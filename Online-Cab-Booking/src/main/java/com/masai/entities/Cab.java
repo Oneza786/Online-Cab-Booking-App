@@ -28,4 +28,46 @@ public class Cab {
 	@OneToOne
 	@JoinColumn(name = "driverID")
 	private CabDriver cabDriver;
+
+	public Integer getCabId() {
+		return cabId;
+	}
+
+	public void setCabId(Integer cabId) {
+		this.cabId = cabId;
+	}
+
+	public String getNumberPlate() {
+		return numberPlate;
+	}
+
+	public void setNumberPlate(String numberPlate) {
+		this.numberPlate = numberPlate;
+	}
+
+	public String getCarType() {
+		return carType;
+	}
+
+	public void setCarType(String carType) {
+		this.carType = carType;
+	}
+
+	public Integer getRatePerKms() {
+		return ratePerKms;
+	}
+
+	public void setRatePerKms(Integer ratePerKms) {
+		this.ratePerKms = ratePerKms;
+	}
+
+	public CabDriver getCabDriver() {
+		return cabDriver;
+	}
+
+	public void setCabDriver(CabDriver cabDriver) {
+		this.cabDriver = cabDriver;
+	}
+	
+	
 }
