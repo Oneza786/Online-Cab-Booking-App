@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Customer extends User{
 	
@@ -20,6 +22,7 @@ public class Customer extends User{
 	
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+	@JsonIgnore
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 
 
@@ -33,8 +36,7 @@ public class Customer extends User{
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
-
-
+	
 
 	public List<TripDetails> getTripDetailsList() {
 		return tripDetailsList;

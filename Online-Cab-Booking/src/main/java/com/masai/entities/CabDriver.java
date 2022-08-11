@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class CabDriver extends User{
@@ -22,10 +25,13 @@ public class CabDriver extends User{
 	
 	
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cabId")
+	@JsonIgnore
 	private Cab cab;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cabDriver")
+	@JsonIgnore
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 
 	
