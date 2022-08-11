@@ -25,7 +25,7 @@ public class CabDriver extends User{
 	@OneToOne
 	private Cab cab;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cabDriver")
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 
 	
