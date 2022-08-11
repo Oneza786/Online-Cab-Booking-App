@@ -19,7 +19,7 @@ public class Customer extends User{
 	
 	
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 
 
