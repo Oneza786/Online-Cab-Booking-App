@@ -8,4 +8,7 @@ import com.masai.entities.CabDriver;
 @Repository
 public interface CabDriverRepository extends JpaRepository<CabDriver, Integer> {
 
+	public CabDriver findByUsername(String username);
+	
+	public CabDriver findByLicenseNumber(String license);
 }

@@ -55,4 +55,10 @@ public class GlobalExceptionHandler {
 		return re;
 	}
 	
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<MyError> exceptionHandler(RuntimeException e,WebRequest wr){
+		MyError err = new MyError(LocalDateTime.now(),e.getMessage(),wr.getDescription(false));
+		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+	}
+	
 }

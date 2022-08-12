@@ -1,6 +1,7 @@
 package com.masai.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Cab {
 	private Integer cabId;
 	
 	@NotNull(message = "Number Plate cannot be null")
+	@Column(unique = true)
 	@Pattern(regexp = "[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}",message = "Number Plate should be in format of MH23BC5678")
 	private String numberPlate;
 	
@@ -26,7 +28,7 @@ public class Cab {
 	private String carType;
 	
 	@NotNull(message = "Rate cannot be null")
-	private Integer ratePerKms;
+	private Float ratePerKms;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "driverID")
@@ -56,11 +58,11 @@ public class Cab {
 		this.carType = carType;
 	}
 
-	public Integer getRatePerKms() {
+	public Float getRatePerKms() {
 		return ratePerKms;
 	}
 
-	public void setRatePerKms(Integer ratePerKms) {
+	public void setRatePerKms(Float ratePerKms) {
 		this.ratePerKms = ratePerKms;
 	}
 
