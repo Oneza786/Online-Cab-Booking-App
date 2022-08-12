@@ -95,6 +95,15 @@ public class CabDriverServiceImpl implements CabDriverService {
 		return new ResponseEntity<CabDriver>(cd,HttpStatus.OK); 
 		
 	}
+
+	@Override
+	public ResponseEntity<String> deleteCabDriver(CabDriver cabDriver) {
+		// TODO Auto-generated method stub
+		CabDriver cd = cabDriverDao.findByUsernameAndPassword(cabDriver.getUsername(), cabDriver.getPassword());
+		if(cd == null) throw new UserDoesNotExist("username or password is wrong");
+		cabDriverDao.delete(cd);
+		return new ResponseEntity<>("driver with username : " + cabDriver.getUsername() + " deleted" ,HttpStatus.OK);
+	}
 	
 	
 	

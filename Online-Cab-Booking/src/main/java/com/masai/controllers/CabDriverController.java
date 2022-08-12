@@ -1,9 +1,9 @@
 package com.masai.controllers;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,5 +33,10 @@ public class CabDriverController {
 	public ResponseEntity<CabDriver> updateCabDriverHandler(@RequestBody CabDriverCabDTO cabdto,@RequestParam String user,@RequestParam String pass){
 		
 		return cabDriverService.updateCabDriver(cabdto,user,pass);
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<String> deleteCabDriverHandler(@RequestBody CabDriver cabDriver){
+		return cabDriverService.deleteCabDriver(cabDriver);
 	}
 }
