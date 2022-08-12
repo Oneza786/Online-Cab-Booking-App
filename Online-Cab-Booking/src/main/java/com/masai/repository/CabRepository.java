@@ -9,6 +9,7 @@ import com.masai.entities.Cab;
 @Repository
 public interface CabRepository extends JpaRepository<Cab, Integer> {
 	
+	public Cab findByNumberPlate(String number);
 	
 
 }

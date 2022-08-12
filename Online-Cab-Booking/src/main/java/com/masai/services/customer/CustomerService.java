@@ -11,6 +11,7 @@ public interface CustomerService {
 	public ResponseEntity<Customer> updateCustomer(Customer customer,String user,String pass);
 	
 	public ResponseEntity<String> deleteCustomer(Customer customer);
+
 	
 	
 

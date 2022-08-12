@@ -93,4 +93,12 @@ public class CabDriver extends User{
 	public CabDriver() {
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "CabDriver [driverId=" + driverId + ", tripDetailsList=" + tripDetailsList + ", licenseNumber="
+				+ licenseNumber + ", availablity=" + availablity + "]";
+	}
+	
+	
 }
