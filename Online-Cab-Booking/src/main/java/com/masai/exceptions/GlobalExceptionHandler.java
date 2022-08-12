@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -55,10 +57,7 @@ public class GlobalExceptionHandler {
 		return re;
 	}
 	
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<MyError> exceptionHandler(RuntimeException e,WebRequest wr){
-		MyError err = new MyError(LocalDateTime.now(),e.getMessage(),wr.getDescription(false));
-		return new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
-	}
+	
+
 	
 }
