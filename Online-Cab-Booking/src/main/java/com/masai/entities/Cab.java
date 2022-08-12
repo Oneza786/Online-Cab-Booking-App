@@ -73,6 +73,12 @@ public class Cab {
 	public void setCabDriver(CabDriver cabDriver) {
 		this.cabDriver = cabDriver;
 	}
+
+	@Override
+	public String toString() {
+		return "Cab [cabId=" + cabId + ", numberPlate=" + numberPlate + ", carType=" + carType + ", ratePerKms="
+				+ ratePerKms + "]";
+	}
 	
 	
 }

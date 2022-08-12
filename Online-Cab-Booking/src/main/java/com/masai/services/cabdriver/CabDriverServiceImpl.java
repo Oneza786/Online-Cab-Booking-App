@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.masai.entities.Cab;
 import com.masai.entities.CabDriver;
 import com.masai.entities.CabDriverCabDTO;
+import com.masai.exceptions.UserDoesNotExist;
 import com.masai.exceptions.UserNameAlreadyExist;
 import com.masai.repository.CabDriverRepository;
 import com.masai.repository.CabRepository;
@@ -50,6 +51,49 @@ public class CabDriverServiceImpl implements CabDriverService {
 		if(cb != null) throw new UserNameAlreadyExist("Number Plate already registered");
 		cabDriverDao.save(cabDriver);
 		return new ResponseEntity<>(cabDriver,HttpStatus.ACCEPTED);
+	}
+
+	@Override
+	public ResponseEntity<CabDriver> updateCabDriver(CabDriverCabDTO cabdto,String user,String pass) {
+		
+//		String username = cabdto.getUsername();
+		CabDriver cd = cabDriverDao.findByUsernameAndPassword(user,pass);
+		
+		if(cd == null) throw new UserDoesNotExist("Username or Password is wrong");
+		
+		Cab cb = cd.getCab();
+		System.out.println(cb);
+		System.out.println(cabdto);
+		
+		if(cabdto.getUsername() != null) {
+			CabDriver cd2 = cabDriverDao.findByUsername(cabdto.getUsername());
+			if(cd2 != null) throw new UserNameAlreadyExist("username already exist");
+			cd.setUsername(cabdto.getUsername());
+		}
+		if(cabdto.getPassword() != null) cd.setPassword(cabdto.getPassword());
+		if(cabdto.getMobile() != null) cd.setMobile(cabdto.getMobile());
+		if(cabdto.getAddress() != null) cd.setAddress(cabdto.getAddress());
+		if(cabdto.getLicenseNumber() != null) {
+			CabDriver cd2 = cabDriverDao.findByLicenseNumber(cabdto.getLicenseNumber());
+			if(cd2 != null) throw new UserNameAlreadyExist("License number already exist");
+		}
+		
+		if(cabdto.getEmail() != null) cd.setEmail(cabdto.getEmail());
+//		if(cabdto.get)
+		
+		if(cabdto.getCarType() != null) cb.setCarType(cabdto.getCarType());
+		if(cabdto.getNumberPlate() != null) {
+			Cab cb2 = cabDao.findByNumberPlate(cabdto.getNumberPlate());
+			if(cb2 != null) throw new UserNameAlreadyExist("Number Plate already registered");
+			cb.setNumberPlate(cabdto.getNumberPlate());;
+		}
+		if(cabdto.getRatePerKms() != null) cb.setRatePerKms(cabdto.getRatePerKms());
+		
+		cabDriverDao.save(cd);
+		
+		
+		return new ResponseEntity<CabDriver>(cd,HttpStatus.OK); 
+		
 	}
 	
 	
