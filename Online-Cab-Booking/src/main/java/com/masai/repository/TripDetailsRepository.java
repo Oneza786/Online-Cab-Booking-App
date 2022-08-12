@@ -9,4 +9,8 @@ import com.masai.entities.TripDetails;
 @Repository
 public interface TripDetailsRepository extends JpaRepository<TripDetails, Integer>{
 
+	
+
+	
+	
 }

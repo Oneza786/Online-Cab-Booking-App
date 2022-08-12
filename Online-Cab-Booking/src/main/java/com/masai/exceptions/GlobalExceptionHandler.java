@@ -57,7 +57,20 @@ public class GlobalExceptionHandler {
 		return re;
 	}
 	
-	
+	@ExceptionHandler(TripInProgress.class)
+	public ResponseEntity<MyError> tripInProgress(TripInProgress mve,WebRequest wr) {
+		MyError err = new MyError(LocalDateTime.now(), mve.getMessage()
+, wr.getDescription(false));
+		ResponseEntity<MyError> re = new ResponseEntity<>(err,HttpStatus.BAD_REQUEST);
+		return re;
+	}
 
-	
+	@ExceptionHandler(CabDriverNotAvailableException.class)
+	public ResponseEntity<MyError> tripInProgress(CabDriverNotAvailableException mve,WebRequest wr) {
+		MyError err = new MyError(LocalDateTime.now(), mve.getMessage()
+            , wr.getDescription(false));
+		ResponseEntity<MyError> re = new ResponseEntity<>(err,HttpStatus.NOT_FOUND);
+		return re;
+	}
+
 }
