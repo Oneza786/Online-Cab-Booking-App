@@ -17,11 +17,11 @@ public class TripDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer tripId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "cabDriverId")
 	private CabDriver cabDriver;
 	
@@ -36,9 +36,6 @@ public class TripDetails {
 	
 	@NotNull(message = "Distance cannot be null")
 	private Float distance;
-	
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer billID;
 	
 	
 	private Float totalFare;
@@ -62,7 +59,6 @@ public class TripDetails {
 		this.toLocation = toLocation;
 		this.status = status;
 		this.distance = distance;
-		this.billID = billID;
 		this.totalFare = totalFare;
 	}
 
@@ -135,16 +131,6 @@ public class TripDetails {
 
 	public void setDistance(Float distance) {
 		this.distance = distance;
-	}
-
-
-	public Integer getBillID() {
-		return billID;
-	}
-
-
-	public void setBillID(Integer billID) {
-		this.billID = billID;
 	}
 
 

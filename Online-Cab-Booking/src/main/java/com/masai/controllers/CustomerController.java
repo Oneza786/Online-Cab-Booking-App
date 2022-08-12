@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.entities.Customer;
+import com.masai.entities.TripDetails;
+import com.masai.entities.TripDetailsDTO;
 import com.masai.services.customer.CustomerServiceImpl;
+import com.masai.services.tripdetailsservice.TripDetailsService;
 
 @RestController
 @RequestMapping(value = "/customer")
@@ -21,6 +24,9 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerServiceImpl custService;
+	
+	@Autowired
+	private TripDetailsService tripService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
@@ -35,5 +41,15 @@ public class CustomerController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteCustomer(@RequestBody Customer customer) {
 		return custService.deleteCustomer(customer);
+	}
+	
+	@PostMapping("/booktrip")
+	public ResponseEntity<TripDetails> bookTrip(@RequestBody TripDetailsDTO tripDto){
+		return tripService.insertTripDetails(tripDto);
+	}
+	
+	@DeleteMapping("/canceltrip")
+	public ResponseEntity<String> deleleTrip(@RequestBody TripDetailsDTO tripDto){
+		return tripService.deleteBookedTrip(tripDto);
 	}
 }

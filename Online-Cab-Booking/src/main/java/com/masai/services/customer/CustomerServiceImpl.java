@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private CustomerRepository customerDao;
 	
-
+@Override
 	public ResponseEntity<Customer> insertCustomer(Customer customer) {
 		Customer cust = customerDao.findByUsername(customer.getUsername());
 		if(cust != null) throw new UserNameAlreadyExist("username already exist");
