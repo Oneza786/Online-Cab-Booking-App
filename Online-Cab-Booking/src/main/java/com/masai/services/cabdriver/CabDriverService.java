@@ -8,5 +8,7 @@ import com.masai.entities.CabDriverCabDTO;
 public interface CabDriverService {
 	
 	public ResponseEntity<CabDriver> insertCabDriver(CabDriverCabDTO cabdto);
+	
+	public ResponseEntity<CabDriver> updateCabDriver(CabDriverCabDTO cabdtupdate,String user,String pass);
 
 }

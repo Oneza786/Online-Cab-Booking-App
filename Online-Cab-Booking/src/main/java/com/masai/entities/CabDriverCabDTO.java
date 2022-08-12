@@ -56,6 +56,14 @@ public class CabDriverCabDTO extends User{
 	public void setCarType(String carType) {
 		this.carType = carType;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "CabDriverCabDTO [licenseNumber=" + licenseNumber + ", numberPlate=" + numberPlate + ", ratePerKms="
+				+ ratePerKms + ", carType=" + carType + "]";
+	}
 	
 	
 }
