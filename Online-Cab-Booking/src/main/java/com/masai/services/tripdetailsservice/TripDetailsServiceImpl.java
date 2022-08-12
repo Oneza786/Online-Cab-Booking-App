@@ -115,6 +115,33 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		
 	}
 
+	@Override
+	public ResponseEntity<List<TripDetails>> getAllTripsOfCustomer(TripDetailsDTO tripDto) {
+		
+		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
+		
+		if(cus ==null) throw new UserDoesNotExist("customer does not exist");
+		
+		List<TripDetails> customerTripList = cus.getTripDetailsList();
+		
+		return new ResponseEntity<>(customerTripList , HttpStatus.OK);
+		
+		
+	}
+
+//	@Override
+//	public ResponseEntity<String> calculateBill(TripDetailsDTO tripDto) {
+//	
+//		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
+//		
+//		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
+//		
+//	
+//		
+//		
+//		
+//	}
+
 	
 	
 	
