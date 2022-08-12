@@ -1,5 +1,7 @@
 package com.masai.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +53,11 @@ public class CustomerController {
 	@DeleteMapping("/canceltrip")
 	public ResponseEntity<String> deleleTrip(@RequestBody TripDetailsDTO tripDto){
 		return tripService.deleteBookedTrip(tripDto);
+	}
+	
+	@PostMapping("/triplist")
+	public ResponseEntity<List<TripDetails>> getAllCustomerTripList(@RequestBody TripDetailsDTO tripDto){
+		
+		return tripService.getAllTripsOfCustomer(tripDto);
 	}
 }
