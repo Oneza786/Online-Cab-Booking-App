@@ -2,14 +2,19 @@ package com.masai.services.customer;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.masai.entities.CabDriver;
 import com.masai.entities.Customer;
+import com.masai.entities.TripDetails;
 import com.masai.exceptions.UserDoesNotExist;
 import com.masai.exceptions.UserNameAlreadyExist;
+import com.masai.repository.CabDriverRepository;
 import com.masai.repository.CustomerRepository;
 
 @Service
@@ -17,6 +22,9 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private CustomerRepository customerDao;
+	
+	@Autowired
+	private CabDriverRepository cabDriverDao;
 	
 @Override
 	public ResponseEntity<Customer> insertCustomer(Customer customer) {
@@ -55,6 +63,18 @@ public class CustomerServiceImpl implements CustomerService{
 		// TODO Auto-generated method stub
 		Customer cust = customerDao.findByUsernameAndPassword(customer.getUsername(), customer.getPassword());
 		if(cust == null) throw new UserDoesNotExist("username or password is wrong");
+List<TripDetails> tripDetailsList = cust.getTripDetailsList();
+		
+		for(int i=0;i<tripDetailsList.size();i++) {
+			if(tripDetailsList.get(i).getStatus()== false) {
+				CabDriver cab = tripDetailsList.get(i).getCabDriver();
+				cab.setAvailablity(true);
+				cabDriverDao.save(cab);
+				tripDetailsList.remove(i);
+				customerDao.save(cust);
+				return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
+			}
+		}
 		customerDao.delete(cust);
 		ResponseEntity<String> re = new ResponseEntity<>("Customer with username : " + customer.getUsername() + " deleted",HttpStatus.OK);
 		return re;

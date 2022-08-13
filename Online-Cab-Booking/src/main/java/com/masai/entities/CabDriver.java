@@ -30,7 +30,7 @@ public class CabDriver extends User{
 	@JsonIgnore
 	private Cab cab;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cabDriver")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "cabDriver",orphanRemoval = true)
 	@JsonIgnore
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 

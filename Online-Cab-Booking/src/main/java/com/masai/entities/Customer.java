@@ -21,7 +21,7 @@ public class Customer extends User{
 	
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer",orphanRemoval = true)
 	@JsonIgnore
 	List<TripDetails> tripDetailsList = new ArrayList<>();
 

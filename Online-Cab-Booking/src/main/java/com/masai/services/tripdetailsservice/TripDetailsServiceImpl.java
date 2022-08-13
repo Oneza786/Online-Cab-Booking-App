@@ -99,10 +99,9 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		
 		for(int i=0;i<tripDetailsList.size();i++) {
 			if(tripDetailsList.get(i).getStatus()== false) {
-//				CabDriver cab = cabDriverDao.findByUsername(tripDetailsList.get(i).getCabDriver().getUsername());
-//				cab.getTripDetailsList().remove(tripDetailsList.get(i));
-//				cabDriverDao.save(cab);
-				tripDetailsDao.delete(tripDetailsList.get(i));
+				CabDriver cab = tripDetailsList.get(i).getCabDriver();
+				cab.setAvailablity(true);
+				cabDriverDao.save(cab);
 				tripDetailsList.remove(i);
 				customerDao.save(cus);
 				return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
