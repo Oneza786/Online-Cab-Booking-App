@@ -84,6 +84,6 @@ public class User {
 		this.mobile = mobile;
 		this.email = email;
 	}
-	
+
 	
 }

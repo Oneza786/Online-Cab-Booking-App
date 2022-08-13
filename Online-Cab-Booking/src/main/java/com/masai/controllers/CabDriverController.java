@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.masai.entities.Cab;
 import com.masai.entities.CabDriver;
 import com.masai.entities.CabDriverCabDTO;
+import com.masai.entities.TripDetailsDTO;
 import com.masai.services.cabdriver.CabDriverService;
+import com.masai.services.tripdetailsservice.TripDetailsService;
 
 @RestController
 @RequestMapping(value = "/cabdriver")
@@ -22,6 +24,9 @@ public class CabDriverController {
 
 	@Autowired
 	private CabDriverService cabDriverService;
+	
+	@Autowired
+	private TripDetailsService tripDetailsService;
 	
 	@PostMapping("/create")
 	public ResponseEntity<CabDriver> insertCabDriverHandler(@RequestBody CabDriverCabDTO cabdto){
@@ -38,5 +43,10 @@ public class CabDriverController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteCabDriverHandler(@RequestBody CabDriver cabDriver){
 		return cabDriverService.deleteCabDriver(cabDriver);
+	}
+	
+	@PostMapping("/tripcompleted")
+	public ResponseEntity<String> tripCompletionHandler(@RequestBody TripDetailsDTO tripDto){
+		return tripDetailsService.calculateBill(tripDto);
 	}
 }
