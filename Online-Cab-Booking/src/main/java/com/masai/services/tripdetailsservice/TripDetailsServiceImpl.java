@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.masai.entities.BillDetails;
 import com.masai.entities.CabDriver;
 import com.masai.entities.Customer;
 import com.masai.entities.TripDetails;
@@ -128,18 +129,60 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		
 	}
 
-//	@Override
-//	public ResponseEntity<String> calculateBill(TripDetailsDTO tripDto) {
-//	
-//		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
-//		
-//		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
-//		
-//	
-//		
-//		
-//		
-//	}
+	@Override
+	public ResponseEntity<String> calculateBill(TripDetailsDTO tripDto) {
+	
+		CabDriver cabDriver = cabDriverDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
+		
+		if(cabDriver == null) throw new UserDoesNotExist("user name or password is wrong");
+		
+		List<TripDetails> customerTripList = cabDriver.getTripDetailsList();
+		
+		if(customerTripList.size() == 0) throw new TripInProgress("No Active Trip Found");
+		
+		
+		
+		TripDetails lastTripDetail =   customerTripList.get(customerTripList.size()-1);
+		
+		if(lastTripDetail.getStatus()==true) throw new TripInProgress("All Trips Completed");
+		
+		Float ratePerkms = cabDriver.getCab().getRatePerKms();
+		Float distance = lastTripDetail.getDistance();
+		
+		lastTripDetail.setTotalFare(ratePerkms*distance);
+		cabDriver.setAvailablity(true);
+		lastTripDetail.setStatus(true);
+		cabDriverDao.save(cabDriver);
+		
+//		tripDetailsDao.save(lastTripDetail);
+		
+		return new ResponseEntity<>("Bill is " + lastTripDetail.getTotalFare(),HttpStatus.ACCEPTED); 
+		
+	}
+
+	@Override
+	public ResponseEntity<BillDetails> generateBill(TripDetailsDTO tripDto) {
+		
+		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
+		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
+		
+		TripDetails tripDetails = tripDetailsDao.findById(tripDto.getTripId()).get(); 
+		if(tripDetails == null) throw new TripInProgress("Trip with given id does not exist");
+		
+		if(cus.getUsername().equals(tripDetails.getCustomer().getUsername())) {
+			if(tripDetails.getStatus()== false) throw new TripInProgress("trip not completed yet");
+			
+			BillDetails billDetails = new BillDetails();
+			billDetails.setDistance(tripDetails.getDistance());
+			billDetails.setRatePerKms(tripDetails.getCabDriver().getCab().getRatePerKms());
+			billDetails.setTotalBill(tripDetails.getTotalFare());
+			
+			return new ResponseEntity<>(billDetails,HttpStatus.ACCEPTED);
+	
+		}
+		
+		throw new UserDoesNotExist("User not Verified");
+	}
 
 	
 	

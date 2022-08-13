@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.entities.BillDetails;
 import com.masai.entities.Customer;
 import com.masai.entities.TripDetails;
 import com.masai.entities.TripDetailsDTO;
@@ -59,5 +60,10 @@ public class CustomerController {
 	public ResponseEntity<List<TripDetails>> getAllCustomerTripList(@RequestBody TripDetailsDTO tripDto){
 		
 		return tripService.getAllTripsOfCustomer(tripDto);
+	}
+	
+	@PostMapping("/generatebill")
+	public ResponseEntity<BillDetails> generateBillHandler(@RequestBody TripDetailsDTO tripDto){
+		return tripService.generateBill(tripDto);
 	}
 }
