@@ -1,0 +1,20 @@
+{
+    "username":"ramesh",
+    "password":"54321",
+    "mobile":"9871109341",
+    "licenseNumber":"qdwertyuiop",
+    "ratePerKms":10,
+    "carType":"EV",
+    "numberPlate":"DL34CV1234"
+},
+{
+    "username":"ritesh",
+    "password":"54321",
+    "mobile":"9871109341"
+},
+{
+     "username":"ritesh",
+     "password":"54321",
+     "fromLocation":"delhi",
+     "toLocation":"indore"
+}
