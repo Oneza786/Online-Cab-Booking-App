@@ -1,7 +1,7 @@
 
 # REST API for Online Cab Booking Application
 
-We have create a REST API for online cab booking application which can be used to book by customers to login into their profile, update their information and 
+We have create a REST API for online cab booking application which can be used by customers to login into their profile, update their information and 
 book cabs, by a driver to login and update their details along with their cab details and accept a ride from the customer. All this is over looked by the 
 admin who can also login and update their information as well as access the data in the application. We have implemented data and user validation at every 
 step, for every user.
