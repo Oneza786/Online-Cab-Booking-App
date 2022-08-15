@@ -13,28 +13,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.entities.Admin;
 import com.masai.entities.TripDetails;
 import com.masai.services.admin.AdminService;
-import com.masai.services.cabdriver.CabDriverService;
-import com.masai.services.customer.CustomerService;
-import com.masai.services.tripdetailsservice.TripDetailsService;
 
 @RestController
 @RequestMapping(value="/admin")
 public class AdminController {
-	
-	@Autowired
-	private CabDriverService cabdriverService;
-	
-	@Autowired
-	private CustomerService customerService;
-	
-	@Autowired
-	private TripDetailsService tripDetailService;
 	
 	@Autowired
 	private AdminService adminService;
