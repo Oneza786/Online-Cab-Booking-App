@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.masai.entities.Cab;
+
 import com.masai.entities.CabDriver;
 import com.masai.entities.CabDriverCabDTO;
 import com.masai.entities.TripDetailsDTO;
