@@ -40,14 +40,14 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		Customer cus= customerDao.findByUsernameAndPassword(tripDto.getUsername(),tripDto.getPassword());
 		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
 		
-		List<TripDetails> tripDetailsList =  cus.getTripDetailsList();
+		List<TripDetails> tripDetailsList =  cus.getTripDetailsList();		
 		
-		for(int i=0;i<tripDetailsList.size();i++) {
-			if(tripDetailsList.get(i).getStatus()== false) throw new TripInProgress("Cannot Book another ... As trip is already in Progress");
-			
-			
+		if(tripDetailsList.size() > 0) {
+			if(tripDetailsList.get(tripDetailsList.size()-1).getStatus()== false) throw new TripInProgress("Cannot Book another ... As trip is already in Progress");
 		}
 		
+		
+				
 		TripDetails tripDetails = new TripDetails();
 		
 		tripDetails.setCustomer(cus);
@@ -98,12 +98,12 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		
 		List<TripDetails> tripDetailsList = cus.getTripDetailsList();
 		
-		for(int i=0;i<tripDetailsList.size();i++) {
-			if(tripDetailsList.get(i).getStatus()== false) {
-				CabDriver cab = tripDetailsList.get(i).getCabDriver();
+		if(tripDetailsList.size() > 0) {
+			if(tripDetailsList.get(tripDetailsList.size()-1).getStatus()== false) {
+				CabDriver cab = tripDetailsList.get(tripDetailsList.size()-1).getCabDriver();
 				cab.setAvailablity(true);
 				cabDriverDao.save(cab);
-				tripDetailsList.remove(i);
+				tripDetailsList.remove(tripDetailsList.size()-1);
 				customerDao.save(cus);
 				return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
 			}

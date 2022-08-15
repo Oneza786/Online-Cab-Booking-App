@@ -1,5 +1,7 @@
 package com.masai.services.cabdriver;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,10 +10,13 @@ import org.springframework.stereotype.Service;
 import com.masai.entities.Cab;
 import com.masai.entities.CabDriver;
 import com.masai.entities.CabDriverCabDTO;
+import com.masai.entities.TripDetails;
+import com.masai.exceptions.TripInProgress;
 import com.masai.exceptions.UserDoesNotExist;
 import com.masai.exceptions.UserNameAlreadyExist;
 import com.masai.repository.CabDriverRepository;
 import com.masai.repository.CabRepository;
+
 
 @Service
 public class CabDriverServiceImpl implements CabDriverService {
@@ -103,6 +108,23 @@ public class CabDriverServiceImpl implements CabDriverService {
 		if(cd == null) throw new UserDoesNotExist("username or password is wrong");
 		cabDriverDao.delete(cd);
 		return new ResponseEntity<>("driver with username : " + cabDriver.getUsername() + " deleted" ,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> updateStatus(CabDriver cabDriver) {
+		
+		CabDriver cd = cabDriverDao.findByUsernameAndPassword(cabDriver.getUsername(), cabDriver.getPassword());
+		if(cd == null) throw new UserDoesNotExist("username or password is wrong");
+		List<TripDetails> tripList = cd.getTripDetailsList();
+		
+		if(tripList.size() > 0) {
+			TripDetails lasTripDetails = tripList.get(tripList.size()-1);
+			if(lasTripDetails.getStatus() == false) throw new TripInProgress("Trip is already in progress");
+			
+		}
+		cd.setAvailablity(!cd.getAvailablity());
+		cabDriverDao.save(cd);
+		return new ResponseEntity<>("Status Updated Successfully",HttpStatus.ACCEPTED);
 	}
 	
 	

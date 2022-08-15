@@ -49,4 +49,9 @@ public class CabDriverController {
 	public ResponseEntity<String> tripCompletionHandler(@RequestBody TripDetailsDTO tripDto){
 		return tripDetailsService.calculateBill(tripDto);
 	}
+	
+	@PostMapping("/updatestatus")
+	public ResponseEntity<String> updateStatusHandler(@RequestBody CabDriver cDriver){
+		return cabDriverService.updateStatus(cDriver);
+	}
 }

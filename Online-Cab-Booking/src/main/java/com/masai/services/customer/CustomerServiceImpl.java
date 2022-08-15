@@ -63,16 +63,17 @@ public class CustomerServiceImpl implements CustomerService{
 		// TODO Auto-generated method stub
 		Customer cust = customerDao.findByUsernameAndPassword(customer.getUsername(), customer.getPassword());
 		if(cust == null) throw new UserDoesNotExist("username or password is wrong");
-List<TripDetails> tripDetailsList = cust.getTripDetailsList();
+		List<TripDetails> tripDetailsList = cust.getTripDetailsList();
 		
-		for(int i=0;i<tripDetailsList.size();i++) {
-			if(tripDetailsList.get(i).getStatus()== false) {
-				CabDriver cab = tripDetailsList.get(i).getCabDriver();
+		if(tripDetailsList.size() > 0) {
+			
+			if(tripDetailsList.get(tripDetailsList.size()-1).getStatus()== false) {
+				CabDriver cab = tripDetailsList.get(tripDetailsList.size()-1).getCabDriver();
 				cab.setAvailablity(true);
 				cabDriverDao.save(cab);
-				tripDetailsList.remove(i);
+				tripDetailsList.remove(tripDetailsList.size()-1);
 				customerDao.save(cust);
-				return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
+	//			return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
 			}
 		}
 		customerDao.delete(cust);
