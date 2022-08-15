@@ -12,5 +12,7 @@ public interface CabDriverService {
 	public ResponseEntity<CabDriver> updateCabDriver(CabDriverCabDTO cabdtupdate,String user,String pass);
 	
 	public ResponseEntity<String> deleteCabDriver(CabDriver cabDriver);
+	
+	public ResponseEntity<String> updateStatus(CabDriver cabDriver);
 
 }

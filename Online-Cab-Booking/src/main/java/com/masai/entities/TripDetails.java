@@ -1,5 +1,7 @@
 package com.masai.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,6 +44,10 @@ public class TripDetails {
 	private Float totalFare;
 
 
+	
+
+
+
 	public TripDetails() {
 		// TODO Auto-generated constructor stub
 	}
@@ -51,7 +57,7 @@ public class TripDetails {
 	public TripDetails(Integer tripId, Customer customer, CabDriver cabDriver,
 			@NotNull(message = "Pickup Location cannot be null") String fromLocation,
 			@NotNull(message = "Drop Location cannot be null") String toLocation, Boolean status,
-			@NotNull(message = "Distance cannot be null") Float distance, Integer billID, Float totalFare) {
+			@NotNull(message = "Distance cannot be null") Float distance, Integer billID, Float totalFare){
 		super();
 		this.tripId = tripId;
 		this.customer = customer;
@@ -143,6 +149,7 @@ public class TripDetails {
 	public void setTotalFare(Float totalFare) {
 		this.totalFare = totalFare;
 	}
+	
 	
 	
 }

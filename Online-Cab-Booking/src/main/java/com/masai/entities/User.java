@@ -1,5 +1,7 @@
 package com.masai.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
@@ -29,6 +31,16 @@ public class User {
 	
 	@Email
 	private String email;
+	
+	private LocalDate dateOfCreation = LocalDate.now();
+
+	public LocalDate getDate() {
+		return dateOfCreation;
+	}
+
+	public void setDate(LocalDate date) {
+		this.dateOfCreation = date;
+	}
 
 	public String getUsername() {
 		return username;
