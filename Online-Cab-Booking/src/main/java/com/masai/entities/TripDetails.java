@@ -19,7 +19,7 @@ public class TripDetails {
 	private Integer tripId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "customerId")
+	@JoinColumn(name = "customerId")  //renaming column name to customerId
 	private Customer customer;
 	
 	@ManyToOne

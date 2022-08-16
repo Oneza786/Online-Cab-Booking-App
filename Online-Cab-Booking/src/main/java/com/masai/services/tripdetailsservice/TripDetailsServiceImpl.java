@@ -77,7 +77,7 @@ public class TripDetailsServiceImpl implements TripDetailsService{
         
          int min = 10;
          int max = 100;
-         float distance = (float)Math.floor(Math.random()*(max-min+1)+min);
+         float distance = (float)Math.floor(Math.random()*(max-min+1)+min); //setting distance using random variable
          tripDetails.setDistance(distance);
          
          
@@ -90,7 +90,7 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 	}
 
 	@Override
-	public ResponseEntity<String> deleteBookedTrip(TripDetailsDTO tripDto) {
+	public ResponseEntity<String> deleteBookedTrip(TripDetailsDTO tripDto) { //deleting booked trip which has not yet started
 
 		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
 		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
@@ -99,9 +99,9 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 		
 		if(tripDetailsList.size() > 0) {
 			if(tripDetailsList.get(tripDetailsList.size()-1).getStatus()== false) {
-				CabDriver cab = tripDetailsList.get(tripDetailsList.size()-1).getCabDriver();
-				cab.setAvailablity(true);
-				cabDriverDao.save(cab);
+				CabDriver cabDriver = tripDetailsList.get(tripDetailsList.size()-1).getCabDriver();
+				cabDriver.setAvailablity(true);
+				cabDriverDao.save(cabDriver);
 				tripDetailsList.remove(tripDetailsList.size()-1);
 				customerDao.save(cus);
 				return new ResponseEntity<>("Trip cancelled successfully",HttpStatus.ACCEPTED);
@@ -160,7 +160,7 @@ public class TripDetailsServiceImpl implements TripDetailsService{
 	}
 
 	@Override
-	public ResponseEntity<BillDetails> generateBill(TripDetailsDTO tripDto) {
+	public ResponseEntity<BillDetails> generateBill(TripDetailsDTO tripDto) {//bean class BillDetails
 		
 		Customer cus = customerDao.findByUsernameAndPassword(tripDto.getUsername(), tripDto.getPassword());
 		if(cus == null) throw new UserDoesNotExist("user name or password is wrong");
