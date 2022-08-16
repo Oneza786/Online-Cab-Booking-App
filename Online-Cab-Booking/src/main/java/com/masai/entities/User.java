@@ -10,6 +10,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+
 
 @MappedSuperclass
 public class User {
@@ -20,7 +24,8 @@ public class User {
 	
 	@NotNull(message = "password cannot be null")
 //	@JsonIgnore()
-	@Size(min = 5,max = 8,message = "password length should be between 5 & 8")
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Size(min = 5,max = 8,message = "password length should be between 5 & 8.")
 	private String password;
 	
 	private String address;
