@@ -25,7 +25,7 @@ public class User {
 	@NotNull(message = "password cannot be null")
 //	@JsonIgnore()
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Size(min = 5,max = 8,message = "password length should be between 5 & 8")
+	@Size(min = 5,max = 8,message = "password length should be between 5 & 8.")
 	private String password;
 	
 	private String address;
